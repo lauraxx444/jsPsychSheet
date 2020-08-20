@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My experiment</title>
+        <script src="jspsych-6.1.0/jspsych.js"></script>
+        <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
+        <script src="jspsych-6.1.0/plugins/jspsych-html-slider-response.js"></script>
+        <script src="jspsych-6.1.0/plugins/jspsych-video-button-response.js"></script>
+        <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+    </head>
+    <body></body>
+    <script>
+
+	/* create timeline */
+	var timeline = [];
+
+	/* define welcome message trial */	
+	var welcome = {
+  		type: "html-keyboard-response",
+  		stimulus: "Welcome to the experiment. Press any key to begin."
+	};
+	timeline.push(welcome);
+    
+    
+    /* Present a randomized order of all of the videos/trials you wish to show */
+    /* Make sure the answer choices are contingent on the video */
+    /* The answer choices are mainly from Table 1 in Stropahl et al., 2017 */
+    /* We'll have to decide which options to give for the ones that aren't from that table */
+    /* To learn more, check out https://www.jspsych.org/overview/timeline/#timeline-variables */
+    
+	var mcGurkProcedure = {
+		timeline: [
+			{
+				type: 'video-button-response',
+				sources: jsPsych.timelineVariable('video'),
+				width: 800,
+				choices: jsPsych.timelineVariable('syllables'),
+				prompt: '<p>Which syllable did you perceive?</p>'
+				
+			},
+			{
+				type: 'html-slider-response',
+				stimulus: '<p>How confident are you in your answer?</p>',
+				labels: ['0','25','50','75','100'],
+				min: 0,
+				max: 100,
+				start: function(){
+					return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
+					},
+				step: 1,
+				prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>"
+			}
+		],
+		timeline_variables: [
+			{ video: ['video/AuditoryBaVisualBa.mp4'], syllables: ['Still need to decide what these choices should be'] },
+			{ video: ['video/AuditoryBaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Da','Ga','Pa'],1) },
+			{ video: ['video/AuditoryBaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ga','Da','Ma'],1) },
+			{ video: ['video/AuditoryBaVisualKa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ka','Ga','Da'],1) },
+			{ video: ['video/AuditoryBaVisualNa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Na','Ga','Da'],1) },
+			{ video: ['video/AuditoryBaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ta','Pa','Da'],1) },
+			{ video: ['video/AuditoryDaVisualMa.mp4'], syllables: ['Still need to decide what these choices should be'] },
+			{ video: ['video/AuditoryMaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ga','Na','Ba'],1) },
+			{ video: ['video/AuditoryMaVisualKa.mp4'], syllables: ['Still need to decide what these choices should be'] },
+			{ video: ['video/AuditoryMaVisualMa.mp4'], syllables: ['Still need to decide what these choices should be'] },
+			{ video: ['video/AuditoryMaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Na','La'],1) },
+			{ video: ['video/AuditoryNaVisualDa.mp4'], syllables: ['Still need to decide what these choices should be'] },
+			{ video: ['video/AuditoryPaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Da','Ka','Ta'],1) },
+			{ video: ['video/AuditoryPaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ga','Ka','Ta'],1) },
+			{ video: ['video/AuditoryPaVisualKa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Da','Ka','Ta'],1) },
+			{ video: ['video/AuditoryPaVisualNa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Na','Ka','Ta'],1) },
+			{ video: ['video/AuditoryPaVisualPa.mp4'], syllables: ['Still need to decide what these choices should be'] },
+			{ video: ['video/AuditoryPaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ta','Da','Ka'],1) },
+			{ video: ['video/AuditoryTaVisualGa.mp4'], syllables: ['Still need to decide what these choices should be'] },
+			
+		],
+		randomize_order: true,
+    	repetitions: 1
+	}
+	timeline.push(mcGurkProcedure);
+
+	/* start the experiment */
+	jsPsych.init({
+  		timeline: timeline,
+  		on_finish: function() {
+    		jsPsych.data.displayData();
+  		}
+	});
+
+    </script>
+</html>
