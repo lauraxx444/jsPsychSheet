@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>My experiment</title>
-        <script src="jspsych-6.1.0/jspsych.js"></script>
-        <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
-        <script src="jspsych-6.1.0/plugins/jspsych-html-slider-response.js"></script>
-        <script src="jspsych-6.1.0/plugins/jspsych-video-button-response.js"></script>
-        <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
-    </head>
+  <head>
+<!-- jsPsych library -->
+<base target="_top">
+<!-- jsPsych library -->
+<script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/jspsych.js"></script>
+<script src="https://lauraxx444.github.iojsPsychSheet/jspsych/plugins/jspsych-html-keyboard-response.js"></script>
+<script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-image-keyboard-response.js"></script>
+<link rel="stylesheet" href="https://lauraxx444.github.io/jsPsychSheet/jspsych/css/jspsych.css">
+
+<!-- jsPsychSheet library -->
+<script src="https://lauraxx444.github.io/jsPsychSheet/jspsychsheet.js"></script>
+<link rel="stylesheet" href="https://lauraxx444.github.io/jsPsychSheet/jspsychsheet.css">
+  </head>
     <body></body>
     <script>
 
@@ -81,6 +86,7 @@
 	/* start the experiment */
 	jsPsych.init({
   		timeline: timeline,
+		  show_progress_bar: true,
   		on_finish: function() {
     		jsPsych.data.displayData();
   		}
