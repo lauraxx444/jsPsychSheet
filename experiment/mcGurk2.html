@@ -5,7 +5,7 @@
 <base target="_top">
 <!-- jsPsych library -->
 <script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/jspsych.js"></script>
-<script src="https://lauraxx444.github.iojsPsychSheet/jspsych/plugins/jspsych-html-keyboard-response.js"></script>
+<script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-html-keyboard-response.js"></script>
 <script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-image-keyboard-response.js"></script>
 <link rel="stylesheet" href="https://lauraxx444.github.io/jsPsychSheet/jspsych/css/jspsych.css">
 
@@ -80,7 +80,7 @@
 		],
 		randomize_order: true,
     	repetitions: 1
-	}
+	};
 	timeline.push(mcGurkProcedure);
 
 	/* start the experiment */
@@ -88,7 +88,7 @@
   		timeline: timeline,
 		  show_progress_bar: true,
   		on_finish: function() {
-    		jsPsych.data.displayData();
+    		jsPsychSheet.uploadData(jsPsych.data.get().csv());
   		}
 	});
 
