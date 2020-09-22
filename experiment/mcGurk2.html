@@ -8,6 +8,9 @@
 	<script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-html-keyboard-response.js"></script>
 	<script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-html-slider-response.js"></script>
 	<script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-video-button-response.js"></script>
+    <script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-html-button-response.js"></script>
+    <script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-external-html.js"></script>
+    <script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-survey-text.js"></script>
 	<link rel="stylesheet" href="https://lauraxx444.github.io/jsPsychSheet/jspsych/css/jspsych.css">
 	
 	<!-- jsPsychSheet library -->
@@ -17,7 +20,7 @@
     </head>
     <body></body>
     <script>
-
+    
 	// generate a random subject ID with 15 characters
 	var subject_id = jsPsych.randomization.randomID(6);
 	
@@ -37,7 +40,128 @@
 	};
 	timeline.push(welcome);
     
+    /* define welcome message trial */
+    var welcome = {
+      type: "html-keyboard-response",
+      stimulus: "Welcome Screen I Added."
+    };
+    timeline.push(welcome);
     
+    var check_consent = function(elem) {
+  if (document.getElementById('consent_checkbox').checked) {
+    return true;
+  }
+  else {
+    alert("If you wish to participate, you must check the box next to the statement 'I agree to participate in this study.'");
+    return false;
+  }
+  return false;
+};
+
+  /* require consent */
+	var consent = {
+    	 type:'external-html',
+     	 url: "https://ufpaclab.github.io/Consent-Forms/Active/Consent.html",
+    	  cont_btn: "consent-button"
+    	  //check_fn: check_consent
+           };
+    timeline.push(consent);
+	
+ 
+    var trial = {
+      type: 'html-button-response',
+      stimulus: '<p>Sex</p>',
+      choices: ['Male', 'Female', 'Intersex'],
+      prompt: "<p>What is your gender?</p>"
+    };
+    timeline.push(trial);
+    
+    var survey_trial = {
+  type: 'survey-text',
+  questions: [
+    {prompt: "How old are you?", name: 'Age'}
+  ],
+};
+timeline.push(survey_trial)
+
+  /* define experiment instructions */ 
+     var instructions = {
+       type: "html-keyboard-response",
+       stimulus: "<p>Thank you for choosing to participate in this experiment. " + 
+       "Please read the instructions below before begining.</p>" +
+       "<p>This experiment consists of three part, each part having multiple trials.</p> " +
+       "<p>During the first part, you will watch a video of a woman as she pronounces a syllable."+
+       "After viewing the video, you will identify which syllable she pronounced - four options will be provided. " +
+       "You will then be asked to rate how confident you were in your selection on a scale of 0 to 100" +
+       " (0 being <strong>not confident</strong> and 100 being <strong>fully confident</strong>).</p> " +
+       "<p>During the second phase of the experiment, you will watch a series of videos.</p>"+
+       "<p> In the third and final phase, you will again watch a video, select the response indicating which syllable was said,"+
+       " and then rank the confidence of your answer. After which, the experiment will be completed.</p>"+
+       "<p> *compensation instructions* </p>" +
+       "<p>We will start with a practice run. Your responses will not be incorporated into the experiment.</p>"+
+       "<p> Press any key to begin the practicing.</p>",
+     };
+     timeline.push(instructions);
+    
+    var prepare = {
+      type: "html-keyboard-response",
+      stimulus: "Screen to prepare for experiment."
+    };
+    timeline.push(prepare);
+    
+    var practice_trial = {
+		timeline: [
+			{
+				type: 'video-button-response',
+				sources: jsPsych.timelineVariable('video'),
+				width: 800,
+				choices: [],
+				data: jsPsych.timelineVariable('video'), /* Store the video name */
+				trial_ends_after_video: true,
+				prompt: '<p></p>'
+				
+			},
+			{
+				type: 'video-button-response',
+				sources: [],
+				width: 800,
+				choices: jsPsych.timelineVariable('syllables'),
+				data: jsPsych.timelineVariable('syllables'), /* Store the answer choices on that trial */
+				prompt: '<p>Which syllable did you perceive?</p>'
+				
+			},
+			{
+				type: 'html-slider-response',
+				stimulus: '<p>How confident are you in your answer?</p>',
+				labels: ['0','25','50','75','100'],
+				min: 0,
+				max: 100,
+				start: function(){
+					return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
+					},
+				step: 1,
+				prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>"
+			}
+		],
+		timeline_variables: [
+			{ video: ['https://lauraxx444.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: ['Still need to decide what these choices should be'] },
+			{ video: ['https://lauraxx444.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Da','Ga','Pa'],1) },
+			{ video: ['https://lauraxx444.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ga','Da','Ma'],1) },
+		],
+		randomize_order: true,
+    	repetitions: 0
+	}
+	timeline.push(practice_trial);
+    
+    /* prep for experiment trials */ 
+     var pretest = {
+       type: "html-keyboard-response",
+       stimulus: "<p>Now that you have completed the practice trials, we are ready to begin the first part of the experiment. " + 
+       "Your responses will now be recorded. </p>" +
+       "<p>Press any key to begin.</p>",
+     };
+     timeline.push(pretest);
+
     /* Present a randomized order of all of the videos/trials you wish to show */
     /* Make sure the answer choices are contingent on the video */
     /* The answer choices are mainly from Table 1 in Stropahl et al., 2017 */
