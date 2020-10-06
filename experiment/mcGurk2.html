@@ -11,7 +11,7 @@
     <script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-html-button-response.js"></script>
     <script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-external-html.js"></script>
     <script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-survey-text.js"></script>
-	<script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/image-keyboard-response.js"></script>
+ <script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-image-keyboard-response.js"></script>
 	<link rel="stylesheet" href="https://lauraxx444.github.io/jsPsychSheet/jspsych/css/jspsych.css">
 	
 	<!-- jsPsychSheet library -->
@@ -40,13 +40,6 @@
   		stimulus: "Welcome to the experiment. Press any key to begin."
 	};
 	timeline.push(welcome);
-    
-    /* define welcome message trial */
-    var welcome = {
-      type: "html-keyboard-response",
-      stimulus: "Welcome Screen I Added."
-    };
-    timeline.push(welcome);
     
     var check_consent = function(elem) {
   if (document.getElementById('consent_checkbox').checked) {
@@ -93,7 +86,7 @@ timeline.push(survey_trial)
      };
      timeline.push(instructions);
 	    
-	      var sound_instructionswait = {
+	  var sound_instructionswait = {
             type: "html-keyboard-response",
             stimulus: "<p>For the duration of the experiment, please use headphones or turn your speakers to a comfortable volume. " + 
             "Please use the following screen as an opportunity to check your audio settings and adjust as necessary.</p>",
@@ -101,7 +94,7 @@ timeline.push(survey_trial)
             trial_duration: 7500,
          };
          
-           var sound_instructionsgo = {
+       var sound_instructionsgo = {
             type: "html-keyboard-response",
             stimulus: "<p>For the duration of the experiment, please use headphones or turn your speakers to a comfortable volume. "+ 
             "Please use the following screen as an opportunity to check your audio settings and adjust as necessary.</p>" +
@@ -109,7 +102,7 @@ timeline.push(survey_trial)
          };
            timeline.push(sound_instructionswait, sound_instructionsgo);
 	    
-	          var pre_if_trial = {
+	   var pre_if_trial = {
       type: 'video-keyboard-response',
       sources: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'],
       width: 800,
@@ -137,6 +130,7 @@ var arms = {
             choices: jsPsych.NO_KEYS,
             trial_duration: 7500,
             };
+       timeline.push(arms)
 	    
 var second = { 
 	type: "html-keyboard-response",
@@ -234,7 +228,7 @@ var fifth = {
     /* We'll have to decide which options to give for the ones that aren't from that table */
     /* To learn more, check out https://www.jspsych.org/overview/timeline/#timeline-variables */
     
-	var mcGurkProcedure = {
+	var pre-exposure = {
 		timeline: [
 			{
 				type: 'video-button-response',
@@ -336,7 +330,7 @@ var exposure = {
 		randomize_order: true,
     	repetitions: 1
 	}
-	timeline.push(mcGurkProcedure);
+	timeline.push(exposure);
 	    
 	       /* prep for post-exposure trial */ 
          var postexposure_prepwait = {
@@ -396,7 +390,7 @@ var post_exposure = {
 		],
 		timeline_variables: [
 			{ video: ['https://BrianOdegaard.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ga','Da','Ma'],1) },
-			{ video: ['https://sampedersen.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualKa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ka','Ga','Da'],1) },
+			{ video: ['https://lauraxx444.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualKa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ka','Ga','Da'],1) },
             { video: ['https://BrianOdegaard.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ga','Na','Ba'],1) },
             { video: ['https://BrianOdegaard.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualKa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Da','Ka','Ta'],1) },
             { video: ['https://BrianOdegaard.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Da','Ka','Ta'],1) },
