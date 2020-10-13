@@ -11,7 +11,9 @@
     <script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-html-button-response.js"></script>
     <script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-external-html.js"></script>
     <script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-survey-text.js"></script>
- <script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-image-keyboard-response.js"></script>
+    <script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-video-keyboard-response.js"></script>
+    <script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-image-button-response.js"></script>
+    <script src="https://lauraxx444.github.io/jsPsychSheet/jspsych/plugins/jspsych-image-keyboard-response.js"></script>
 	<link rel="stylesheet" href="https://lauraxx444.github.io/jsPsychSheet/jspsych/css/jspsych.css">
 	
 	<!-- jsPsychSheet library -->
@@ -123,7 +125,7 @@ timeline.push(survey_trial)
 	    
 var arms = {
 	type: 'image-button-response',
-    stimulus: "https://lauraxx444.github.io/jsPsychSheet/images/arm.png",
+    stimulus: "https://lauraxx444.github.io/jsPsychSheet/images/armsLength.png",
     choices: jsPsych.NO_KEYS,
     prompt:  "<p>Throughout the entirity of the experiment, please sit at an arm's distance from your computer screen, as illustrated above. "+ 
             "Your attention should also be focused on the center of your screen.</p>",
@@ -211,7 +213,7 @@ var fifth = {
 		randomize_order: true,
     	repetitions: 0
 	}
-	timeline.push(practice_trial);
+//	timeline.push(practice_trial);
     
     /* prep for experiment trials */ 
      var pretest = {
@@ -228,7 +230,7 @@ var fifth = {
     /* We'll have to decide which options to give for the ones that aren't from that table */
     /* To learn more, check out https://www.jspsych.org/overview/timeline/#timeline-variables */
     
-	var pre-exposure = {
+	var pre_exposure = {
 		timeline: [
 			{
 				type: 'video-button-response',
@@ -330,7 +332,7 @@ var exposure = {
 		randomize_order: true,
     	repetitions: 1
 	}
-	timeline.push(exposure);
+	//timeline.push(exposure);
 	    
 	       /* prep for post-exposure trial */ 
          var postexposure_prepwait = {
@@ -398,9 +400,8 @@ var post_exposure = {
 		
         ],
 		randomize_order: true,
-    	repetitions: 0
 	}
-	timeline.push(post_exposure);
+	//timeline.push(post_exposure);
 	    
 var endgo = {
         type: "html-keyboard-response",
