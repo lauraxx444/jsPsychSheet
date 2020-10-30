@@ -84,7 +84,7 @@ timeline.push(survey_trial)
 	    
 	   var pre_if_trial = {
       type: 'video-keyboard-response',
-      sources: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'],
+      sources: ['resources/AuditoryBaVisualBa.mp4'],
       width: 800,
   		prompt: '<p>Use this screen to test your sound settings and volume. Press any key to repeat the video. When you are ready to continue, press C.</p>'
   	}
@@ -103,7 +103,7 @@ timeline.push(survey_trial)
 	    
 var arms = {
 	type: 'image-button-response',
-    stimulus: "images/armsLength.png",
+    stimulus: "resources/armsLength.png",
     choices: jsPsych.NO_KEYS,
     prompt:  "<p>Throughout the entirity of the experiment, please sit at an arm's distance from your computer screen, as illustrated above. "+ 
             "Your attention should also be focused on the center of your screen.</p>",
